@@ -15,4 +15,22 @@ const Ship = function(length) {
     return { length, hit, isSunk };
 }
 
-module.exports = Ship;
+const Gameboard = function() {
+    let cells = new Array(10);
+    for (let i = 0; i < 10; i++) {
+        cells[i] = new Array(10).fill(null);
+    }
+
+    const getCells = function() {
+        let newCells = new Array(10);
+        for (let i = 0; i < 10; i++) {
+            newCells[i] = cells[i].slice();
+        }
+        return newCells;
+    }
+
+    return { getCells }
+}
+
+exports.Ship = Ship;
+exports.Gameboard = Gameboard;

@@ -1,4 +1,4 @@
-const Ship = require('./main.js');
+const Ship = require('./main.js').Ship;
 
 test('Can pass length', () => {
     expect(Ship(3).length).toBe(3);
