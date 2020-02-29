@@ -29,7 +29,19 @@ const Gameboard = function() {
         return newCells;
     }
 
-    return { getCells }
+    const placeShip = function(x, y, length, isHorizontal) {
+        if (Math.max(x, y) >= 10 || Math.min(x, y) < 0) {
+            throw 'Coordinates are out of bounds!';
+        }
+        if (length <= 0) throw 'Non-positive length!';
+
+        if (isHorizontal && x + length > 10 ||
+            !isHorizontal && y + length > 10) {
+            throw 'Ship goes out of bounds!';
+        }
+    }
+
+    return { getCells, placeShip };
 }
 
 exports.Ship = Ship;
