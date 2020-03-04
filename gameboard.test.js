@@ -53,3 +53,51 @@ test('vertical length positive overflow', () => {
 test('vertical length positive overflow but just at edge', () => {
     expect(() => Gameboard().placeShip(6, 8, 3, false)).toThrow();
 });
+
+test('insert a horizontal ship', () => {
+    let myBoard = Gameboard();
+    myBoard.placeShip(4, 2, 3, true);
+    const myCells = myBoard.getCells();
+    const expectedShipCells = [myCells[4][2], myCells[5][2], myCells[6][2]];
+    expect(expectedShipCells.reduce((a, b) => a && b)).toBeTruthy();
+});
+
+test('insert a horizontal ship just at ending edge', () => {
+    let myBoard = Gameboard();
+    myBoard.placeShip(7, 5, 3, true);
+    const myCells = myBoard.getCells();
+    const expectedShipCells = [myCells[7][5], myCells[8][5], myCells[9][5]];
+    expect(expectedShipCells.reduce((a, b) => a && b)).toBeTruthy();
+});
+
+test('insert a horizontal ship just at starting edge', () => {
+    let myBoard = Gameboard();
+    myBoard.placeShip(0, 8, 4, true);
+    const myCells = myBoard.getCells();
+    const expectedShipCells = [myCells[0][8], myCells[1][8], myCells[2][8], myCells[3][8]];
+    expect(expectedShipCells.reduce((a, b) => a && b)).toBeTruthy();
+});
+
+test('insert a vertical ship', () => {
+    let myBoard = Gameboard();
+    myBoard.placeShip(1, 8, 2, false);
+    const myCells = myBoard.getCells();
+    const expectedShipCells = [myCells[1][8], myCells[1][9]];
+    expect(expectedShipCells.reduce((a, b) => a && b)).toBeTruthy();
+});
+
+test('insert a vertical ship just at edge', () => {
+    let myBoard = Gameboard();
+    myBoard.placeShip(0, 9, 1, false);
+    const myCells = myBoard.getCells();
+    const expectedShipCells = [myCells[0][9]];
+    expect(expectedShipCells.reduce((a, b) => a && b)).toBeTruthy();
+});
+
+test('insert a vertical ship just at starting edge', () => {
+    let myBoard = Gameboard();
+    myBoard.placeShip(6, 0, 2, false);
+    const myCells = myBoard.getCells();
+    const expectedShipCells = [myCells[6][0], myCells[6][1]];
+    expect(expectedShipCells.reduce((a, b) => a && b)).toBeTruthy();
+});

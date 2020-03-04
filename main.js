@@ -39,6 +39,17 @@ const Gameboard = function() {
             !isHorizontal && y + length > 10) {
             throw 'Ship goes out of bounds!';
         }
+
+        newShip = Ship(length);
+        if (isHorizontal) {
+            for (let x0 = x; x0 < x + length; x0++) {
+                cells[x0][y] = newShip;
+            }
+        } else {
+            for (let y0 = y; y0 < y + length; y0++) {
+                cells[x][y0] = newShip;
+            }
+        }
     }
 
     return { getCells, placeShip };
