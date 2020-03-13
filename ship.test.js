@@ -38,3 +38,22 @@ test('Ship can\'t be sunk by hitting 1 spot continuously', () => {
     myShip.hit(0);
     expect(myShip.isSunk()).toBe(false);
 });
+
+test('Throws on out of bound indices', () => {
+    let myShip = Ship(3);
+    expect(() => myShip.isHit(4)).toThrow();
+    expect(() => myShip.isHit(-2)).toThrow();
+    expect(() => myShip.isHit(3)).toThrow();
+});
+
+test('Ship is not hit initially', () => {
+    let myShip = Ship(2);
+    expect(myShip.isHit(0)).toEqual(false);
+    expect(myShip.isHit(1)).toEqual(false);
+});
+
+test('Ship gets hit properly', () => {
+    let myShip = Ship(4);
+    myShip.hit(2);
+    expect(myShip.isHit(2)).toEqual(true);
+});

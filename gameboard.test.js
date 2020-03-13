@@ -101,3 +101,32 @@ test('insert a vertical ship just at starting edge', () => {
     const expectedShipCells = [myCells[6][0], myCells[6][1]];
     expect(expectedShipCells.reduce((a, b) => a && b)).toBeTruthy();
 });
+
+test('receiveAttack positive out of index', () => {
+    let myBoard = Gameboard();
+    expect(() => myBoard.receiveAttack(12, 11)).toThrow();
+});
+
+test('receiveAttack negative out of index', () => {
+    let myBoard = Gameboard();
+    expect(() => myBoard.receiveAttack(-3, -1)).toThrow();
+});
+
+test('receiveAttack on empty Gameboard to be "miss"', () => {
+    let myBoard = Gameboard();
+    expect(myBoard.receiveAttack(3, 0)).toEqual('miss');
+});
+
+test('receive attack on ship to be "hit"', () => {
+    let myBoard = Gameboard();
+    myBoard.placeShip(5, 7, 3, true);
+    expect(myBoard.receiveAttack(6, 7)).toEqual('hit');
+});
+
+test('multiple receive attacks on ship eventually should be "sunk"', () => {
+    let myBoard = Gameboard();
+    myBoard.placeShip(3, 6, 3, false);
+    expect(myBoard.receiveAttack(3, 7)).toEqual('hit');
+    expect(myBoard.receiveAttack(3, 6)).toEqual('hit');
+    expect(myBoard.receiveAttack(3, 8)).toEqual('sunk');
+});
