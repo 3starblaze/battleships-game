@@ -25,6 +25,10 @@ const Gameboard = function() {
     for (let i = 0; i < 10; i++) {
         cells[i] = new Array(10).fill(null);
     }
+    let attackMask = new Array(10);
+    for (let i = 0; i < 10; i++) {
+        attackMask[i] = new Array(10).fill(false);
+    }
 
     const getCells = function() {
         let newCells = new Array(10);
@@ -63,6 +67,7 @@ const Gameboard = function() {
         if (Math.max(x, y) >= 10 || Math.min(x, y) < 0) {
             throw "Coordinates out of bounds!";
         }
+        attackMask[x][y] = true;
         let resultString = 'miss';
         if (cells[x][y] != null) {
             const shipObject = cells[x][y];
@@ -72,7 +77,15 @@ const Gameboard = function() {
         return resultString;
     }
 
-    return { getCells, placeShip, receiveAttack };
+    // Public function which tells whether a specific cell has been attacked
+    const isShot = function(x, y) {
+        if (Math.max(x, y) >= 10 || Math.min(x, y) < 0) {
+            throw "Coordinates out of bounds!";
+        }
+        return attackMask[x][y];
+    }
+
+    return { getCells, placeShip, receiveAttack, isShot };
 }
 
 exports.Ship = Ship;

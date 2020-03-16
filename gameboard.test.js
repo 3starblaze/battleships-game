@@ -130,3 +130,22 @@ test('multiple receive attacks on ship eventually should be "sunk"', () => {
     expect(myBoard.receiveAttack(3, 6)).toEqual('hit');
     expect(myBoard.receiveAttack(3, 8)).toEqual('sunk');
 });
+
+test('Fresh gameboard doesn\'t have any hit cells', () => {
+    let myBoard = Gameboard();
+    expect(myBoard.isShot(3, 5)).toEqual(false);
+});
+
+test('Hit cell should be hit', () => {
+    let myBoard = Gameboard();
+    myBoard.receiveAttack(8, 1);
+    expect(myBoard.isShot(8, 1)).toEqual(true);
+});
+
+test('Invalid coordinates to isShot should be thrown', () => {
+    let myBoard = Gameboard();
+    expect(() => myBoard.isShot(10, 2)).toThrow();
+    expect(() => myBoard.isShot(5, 13)).toThrow();
+    expect(() => myBoard.isShot(-1, 9)).toThrow();
+    expect(() => myBoard.isShot(-7, -4)).toThrow();
+});
