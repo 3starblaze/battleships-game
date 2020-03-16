@@ -85,7 +85,17 @@ const Gameboard = function() {
         return attackMask[x][y];
     }
 
-    return { getCells, placeShip, receiveAttack, isShot };
+    // Reports whether all ships are sunk
+    const allShipsSunk = function() {
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                if (attackMask[i][j] === false && cells[i][j] !== null) return false;
+            }
+        }
+        return true;
+    }
+
+    return { getCells, placeShip, receiveAttack, isShot, allShipsSunk };
 }
 
 exports.Ship = Ship;

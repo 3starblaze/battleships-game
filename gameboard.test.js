@@ -149,3 +149,32 @@ test('Invalid coordinates to isShot should be thrown', () => {
     expect(() => myBoard.isShot(-1, 9)).toThrow();
     expect(() => myBoard.isShot(-7, -4)).toThrow();
 });
+
+test('Fresh gameboard has all ships sunk', () => {
+    let myBoard = Gameboard();
+    expect(myBoard.allShipsSunk()).toEqual(true);
+});
+
+test('Fresh gameboard with fresh ship doesn\'t have all ships sunk', () => {
+    let myBoard = Gameboard();
+    myBoard.placeShip(4, 3, 3, true);
+    expect(myBoard.allShipsSunk()).toEqual(false);
+});
+
+test('Add a ship, sink it, should have all ships sunk', () => {
+    let myBoard = Gameboard();
+    myBoard.placeShip(2, 1, 2, true);
+    myBoard.receiveAttack(3, 1);
+    myBoard.receiveAttack(2, 1);
+    expect(myBoard.allShipsSunk()).toEqual(true);
+});
+
+test('Add 2 ships, sink 1, shouldn\'t have all ships sunk', () => {
+    let myBoard = Gameboard();
+    myBoard.placeShip(4, 7, 3, false);
+    myBoard.placeShip(1, 1, 4, true);
+    myBoard.receiveAttack(4, 8);
+    myBoard.receiveAttack(4, 9);
+    myBoard.receiveAttack(4, 7);
+    expect(myBoard.allShipsSunk()).toEqual(false);
+});
