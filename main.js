@@ -106,6 +106,24 @@ const Player = function() {
     return { attack };
 }
 
+const AIPlayer = function() {
+    const playerInstance = Player();
+    let unshotCells = Array(100);
+    for (let i = 0; i < 100; i++) {
+        // Convert i to coordinates
+        unshotCells[i] = [Math.floor(i / 10), i % 10];
+    }
+
+    const attack = function(board) {
+        const randomCoordinates =
+              unshotCells[Math.floor(Math.random() * unshotCells.length)];
+        return playerInstance.attack(board, randomCoordinates[0], randomCoordinates[1]);
+    };
+
+    return { attack };
+}
+
 exports.Ship = Ship;
 exports.Gameboard = Gameboard;
 exports.Player = Player;
+exports.AIPlayer = AIPlayer;
