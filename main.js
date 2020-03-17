@@ -98,5 +98,14 @@ const Gameboard = function() {
     return { getCells, placeShip, receiveAttack, isShot, allShipsSunk };
 }
 
+const Player = function() {
+    const attack = function(board, x, y) {
+        return board.receiveAttack(x, y);
+    }
+
+    return { attack };
+}
+
 exports.Ship = Ship;
 exports.Gameboard = Gameboard;
+exports.Player = Player;
