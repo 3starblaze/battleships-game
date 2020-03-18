@@ -123,7 +123,32 @@ const AIPlayer = function() {
     return { attack };
 }
 
+const Game = function() {
+    const normalPlayer = AIPlayer();
+    const normalPlayerBoard = Gameboard();
+    // For now there will be hard-coded ships in board
+    normalPlayerBoard.placeShip(1, 1, 1, true);
+    normalPlayerBoard.placeShip(2, 5, 3, false);
+    normalPlayerBoard.placeShip(8, 9, 2, true);
+
+    const aiPlayer = AIPlayer();
+    const aiPlayerBoard = Gameboard();
+    // Just like player's ships
+    aiPlayerBoard.placeShip(5, 3, 1, true);
+    aiPlayerBoard.placeShip(7, 2, 3, false);
+    aiPlayerBoard.placeShip(4, 7, 2, false);
+
+    while (true) {
+        normalPlayer.attack(aiPlayerBoard);
+        if (aiPlayerBoard.allShipsSunk()) break;
+
+        aiPlayer.attack(normalPlayerBoard);
+        if (normalPlayerBoard.allShipsSunk()) break;
+    }
+}
+
 exports.Ship = Ship;
 exports.Gameboard = Gameboard;
 exports.Player = Player;
 exports.AIPlayer = AIPlayer;
+exports.Game = Game;
